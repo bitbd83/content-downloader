@@ -4,3 +4,6 @@
 /*.egg
 /*.egg-info
 .idea/
+node_modules/
+build/
+assets/

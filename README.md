@@ -115,6 +115,20 @@ Optional arguments are:
   $ ctdl -f pdf -l 10 -minfs 10000 -maxfs 100000 -nr -p "python algorithm"
   ```
 
+## Web server using Webpack and React.js
+
+* Install dependencies:
+    ```
+    npm install
+    ```
+
+* Run with:
+    ```
+    npm run dev
+    ```
+
+* Go to http://localhost:8080/assets/index.html (after logs say `webpack: Compiled successfully.`)
+
 ## Flask server API with Query Parameters usage
 
 * Install Flask dependency:
