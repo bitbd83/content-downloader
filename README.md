@@ -60,6 +60,10 @@ Optional arguments are:
 
 - -p : for parallel downloading.
 
+- -a : list of all available filetypes.
+
+- -t : list of all common virus carrier filetypes.
+
 - -minfs MIN_FILE_SIZE : specify minimum file size to download in Kilobytes (KB).
 
                  Default: 0
@@ -124,7 +128,7 @@ Optional arguments are:
 * Install appJar. See [appJar Widgets for info](http://appjar.info/pythonWidgets/)
 
     ```
-    pip install appjar
+    pip install appjar pyyaml
     ```
 
 * Start GUI
