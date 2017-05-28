@@ -2,6 +2,7 @@ import sys
 import argparse
 import requests
 import urllib
+import yaml
 try:
 	from urllib.request import urlopen
 except ImportError:
@@ -9,8 +10,8 @@ except ImportError:
 from requests.packages.urllib3.util.retry import Retry
 from requests.adapters import HTTPAdapter
 from bs4 import BeautifulSoup
-from .downloader import download_series, download_parallel
-from .utils import DEFAULT_ARGS, FILE_EXTENSIONS, THREAT_EXTENSIONS
+from downloader import download_series, download_parallel
+from utils import DEFAULT_ARGS, FILE_EXTENSIONS, THREAT_EXTENSIONS
 
 search_url = "https://www.google.com/search"
 
@@ -156,14 +157,10 @@ def download_content(**args):
 
 
 def show_filetypes(extensions):
-	"""
+    """
 	function to show valid file extensions
 	"""
-	for item in extensions.items():
-		val = item[1]
-		if type(item[1]) == list:
-			val = ", ".join(str(x) for x in item[1])
-		print("{0:4}: {1}".format(val, item[0]))
+    print(yaml.dump(extensions, default_flow_style=False))
 
 
 def main(query_params={}, **args):
