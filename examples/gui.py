@@ -1,5 +1,6 @@
 from appJar import gui
 import sys
+import random
 
 import site
 
@@ -19,9 +20,6 @@ from ctdl.utils import DEFAULT_ARGS, FILE_EXTENSIONS, THREAT_EXTENSIONS
 import ctdl
 from ctdl.ctdl import main
 from ctdl import settings
-
-# create gui and set title
-app = gui("Content Search")
 
 # initialise globals for progress bar
 settings.init_globals()
@@ -91,7 +89,39 @@ def processContentSearch(btnName):
         main(query_params)
 
 # http://appjar.info/pythonWidgets/
-app.setFont(12)
+
+# create gui and set title
+app = gui()
+app.setTitle("Content Search")
+# import sys; app.setBgImage(sys.path[0] + "/images/bg.gif")
+app.setTransparency(100)
+app.setFont(12, "Arial bold")
+app.setBg("#FFFFFF")
+app.setGeometry(400, 400)
+app.setResizable(canResize=True)
+# app.setLocation(0, 0)
+app.setGuiPadding(10, 10)
+
+def gen_hex_colour_code():
+    return ''.join([random.choice('0123456789ABCDEF') for x in range(6)])
+
+def change_theme(arg):
+    hex_code = gen_hex_colour_code()
+    app.setBg("#" + hex_code)
+
+is_full_screen = False
+def change_window_size(arg):
+    global is_full_screen
+    if not is_full_screen:
+        app.setFont(30)
+        app.setGeometry("fullscreen")
+        app.setButton("Full Screen", "Normal Screen")
+        is_full_screen = True
+    else:
+        app.setFont(12)
+        app.setGeometry(400, 400)
+        app.setButton("Full Screen", "Full Screen")
+        is_full_screen = False
 
 # add labels and entries in correct row & column
 app.addFlashLabel("queryLab", "Search Query:", 0, 0)
@@ -102,9 +132,9 @@ app.addLabel("fileTypeLab", "File Type:", 1, 0)
 def get_labelled_options():
     # dict with key categories with array values of associated file extensions
     labelled_dict = {}
-    for k1, v1 in FILE_EXTENSIONS.items():
+    for k1, v1 in sorted(FILE_EXTENSIONS.items()):
         labelled_dict[k1] = []
-        for k2, v2 in v1.items():
+        for k2, v2 in sorted(v1.items()):
             labelled_dict[k1].append(v2)
 
     # array appended with specially formatted categories followed by associated file extensions
@@ -118,27 +148,30 @@ def get_labelled_options():
 app.addLabelOptionBox("file-type", get_labelled_options(), 1, 1)
 
 app.addLabel("limitLab", "Limit of Downloads:", 3, 0)
+app.setLabelBg("queryLab", "#EEEEFF")
 app.addEntry("limitEnt", 3, 1)
 app.setEntryDefault("limitEnt", DEFAULT_ARGS["limit"])
 app.addLabel("directoryLab", "Download Directory Name:", 4, 0)
 app.addEntry("directoryEnt", 4, 1)
 app.addLabel("parallelLab", "Parallel Downloading:", 5, 0)
 app.addCheckBox("parallel-downloading", 5, 1)
-app.addLabel("minFileSizeLab", "Min File Size:", 6, 0)
+app.addLabel("minFileSizeLab", "Minimum File Size:", 6, 0)
 app.addEntry("minFileSizeEnt", 6, 1)
 app.setEntryDefault("minFileSizeEnt", DEFAULT_ARGS["min_file_size"])
-app.addLabel("maxFileSizeLab", "Max File Size:", 7, 0)
+app.addLabel("maxFileSizeLab", "Maximum File Size:", 7, 0)
 app.addEntry("maxFileSizeEnt", 7, 1)
 app.setEntryDefault("maxFileSizeEnt", "unlimited")
 app.addLabel("redirectsLab", "URL Redirects:", 8, 0)
 app.addCheckBox("toggle-redirects", 8, 1)
 app.addHorizontalSeparator(9, 0, 2, colour="red")
-app.addWebLink("Suggestions or issues?", "https://github.com/nikhilkumarsingh/content-downloader/issues", colspan=2)
-
-# changed this line to call a function
 app.addButtons( ["Search", "Cancel"], processContentSearch, colspan=2)
-
-app.addMeter("progress")
+app.setButtonImage("Search", sys.path[0] + "/images/search_button.gif")
+app.setButtonImage("Cancel", sys.path[0] + "/images/cancel_button.gif")
+app.addButton("Full Screen", change_window_size, 11, 0)
+app.addButton("Switch Theme", change_theme, 11, 1)
+app.addButtons(["English", "Hindi", "Deutsch", "Espanol", "Mandarin"], app.changeLanguage, colspan=5)
+app.addWebLink("Suggestions or issues?", "https://github.com/nikhilkumarsingh/content-downloader/issues", colspan=2)
+app.addMeter("progress", colspan=2)
 app.setMeterFill("progress", "blue")
 
 def updateMeter():
@@ -152,4 +185,5 @@ app.setFocus("queryEnt")
 app.enableEnter(processContentSearch)
 
 # start the GUI
-app.go()
+# internationalisation http://appjar.info/pythonInternationalisation/#internationalisation
+app.go("english") # starting internationalisation language

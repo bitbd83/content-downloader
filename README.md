@@ -139,7 +139,15 @@ Optional arguments are:
 
     ![alt tag](https://raw.githubusercontent.com/ltfschoen/content-downloader/master/screenshots/gui_appjar_updated.png)
 
+    ![alt tag](https://raw.githubusercontent.com/ltfschoen/content-downloader/master/screenshots/gui_appjar_theme2.png)
+
+    ![alt tag](https://raw.githubusercontent.com/ltfschoen/content-downloader/master/screenshots/gui_appjar_theme1_full_screen.png)
+
 * Automatically opens in a Finder window the directory containing the downloaded files when download completes
+
+* Internationalisation supported (currently includes English, Hindi, Deutsch, Espanol, Mandarin
+
+* Colour themes supported
 
 ## Flask server API with Query Parameters usage
 
@@ -202,6 +210,10 @@ ctdl.download_content(query, filetype, directory, limit)
 - [X] macOS - Automatically open directory where files were downloaded when download completes
 - [ ] Windows - Automatically open directory where files were downloaded when download completes
 - [ ] Linux - Automatically open directory where files were downloaded when download completes
+- [X] Internationalisation - English, Hindi, Deutsch, Espanol, Mandarin
+- [X] Colour themes
+- [X] Accessibility with full screen mode
+- [X] Downloaded files saved in subdirectories of a 'downloads' directory that is generated at project root level
 
 ## Want to contribute?
 
